@@ -6,7 +6,7 @@
 /*   By: skwon2 <skwon2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:06:18 by skwon2            #+#    #+#             */
-/*   Updated: 2024/12/30 09:28:08 by skwon2           ###   ########.fr       */
+/*   Updated: 2024/12/30 18:19:24 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class Fixed{
             float toFloat( void ) const;
             int toInt( void ) const;
 };
-x
+
 //not related in maniplating  fixed point
 // stream insertion related.
 

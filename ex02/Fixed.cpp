@@ -6,7 +6,7 @@
 /*   By: skwon2 <skwon2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:05:57 by skwon2            #+#    #+#             */
-/*   Updated: 2024/12/30 18:00:32 by skwon2           ###   ########.fr       */
+/*   Updated: 2024/12/30 19:06:32 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,12 @@ Fixed Fixed::operator/(const Fixed& next){
     res._fixedPoint = (this->_fixedPoint << fractional_bits) / next._fixedPoint;
     //because divide fixedPoint will be the same as dividing normal number(or float),
     // so in order to make the value to fixedPoint again need to *256 again  by giving <<fractional_bits.
-    return res; 
+    return res;  
+    // The res object is local to the function. When the function ends, res is destroyed.
+    // To give the caller access to the value of res, the compiler must create a copy (or move, if move semantics are implemented).
+
+    // The copy constructor is called to copy the value of res into the temporary object created for the return value.
+    // This temporary object is then used in the caller's context.
 }
 
 bool Fixed::operator>(const Fixed& next) const {
@@ -169,6 +174,7 @@ Fixed Fixed::operator--(int){
 } 
 Fixed& Fixed::operator++(){
     //this is pre-increment
+    //For fixedpoint representation each integer value, 1 represents 1 / 256. = 0.00390625
     this->_fixedPoint++;
     return (*this);
 }

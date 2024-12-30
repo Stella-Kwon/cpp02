@@ -6,7 +6,7 @@
 #    By: skwon2 <skwon2@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/07 12:57:53 by skwon2            #+#    #+#              #
-#    Updated: 2024/12/30 11:17:51 by skwon2           ###   ########.fr        #
+#    Updated: 2024/12/30 18:50:08 by skwon2           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ COMPILER = c++
 SRC = 	main.cpp\
 		Fixed.cpp
 
-FLAGS = -Wall -Wextra -Werror -std=c++20
+FLAGS = -Wall -Wextra -Werror -std=c++20 
+#-fno-elide-constructors :  flag for the copy elison :  force the compiler to use the copy constructor of mine
 
 OBJ = $(SRC:.cpp=.o)
 
