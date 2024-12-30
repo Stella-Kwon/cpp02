@@ -6,7 +6,7 @@
 /*   By: skwon2 <skwon2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:05:57 by skwon2            #+#    #+#             */
-/*   Updated: 2024/12/30 11:08:26 by skwon2           ###   ########.fr       */
+/*   Updated: 2024/12/29 11:42:42 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,33 +48,26 @@ Fixed::~Fixed(){
     std::cout << "Destructor called" << std::endl;    
 }
 
-// Fixed& Fixed::operator=(const Fixed& newFixed) : _fixedPoint(newFixed._fixedPoin){};
+// Fixed& Fixed::operator=(const Fixed& oldFixed) : _fixedPoint(oldFixed._fixedPoin){};
 // initializer list is not allowed within copy assignment operator.
 // because it does not create an instance anymore.
-// so that is why also it need to be return in reference.
-// Fixed& has to be with reference because if you return this which is just Fixed
-// it is only returning the memory address of the object.
-Fixed& Fixed::operator=(const Fixed& newFixed){    
+Fixed& Fixed::operator=(const Fixed& oldFixed){    
     std::cout << "Copy assignment operator called" << std::endl;
-    if (this != &newFixed) // you dont set the value on the same thing.
+    if (this != &oldFixed) // you dont set the value on the same thing.
     {
         //because of the subject instructs us to call the getrawbit() while in this function.
-        _fixedPoint = newFixed.getRawBits();
+        _fixedPoint = oldFixed.getRawBits();
 
         // 2.
-        // _fixedPoint = newFixed._fixedPoint;
+        // _fixedPoint = oldFixed._fixedPoint;
     }
     return *this;
     //return this will not allowed as this is a pointer to an object.
     //*this : dereferencing this to get the current object itself.
-    // return this;
     // Fixed a, b, c;
     // a = b = c; // Error
-    // but if we return *this;
-    // a = b = c will be equal to c value.
+    // then when we 
 }
-
-//
 
 Fixed::Fixed(const Fixed& oldFixed) : _fixedPoint(oldFixed._fixedPoint) {
     std::cout << "Copy constructor called" << std::endl;
@@ -82,28 +75,18 @@ Fixed::Fixed(const Fixed& oldFixed) : _fixedPoint(oldFixed._fixedPoint) {
     // The copy constructor is called to create a new object (this).
     // The 'this' pointer refers to the current object being created (new object).
     // 'oldFixed' is the source object from which the data will be copied.
-    // however the oldFixed should not copied again as it is calling another copy constructor 
-    // which will lead stack overflow or infinite loop. 
-    // This would lead to infinite recursion because the copy constructor would call itself repeatedly to create oldFixed
-    // for the efficient memory management we should give the parameter(oldFixed)as a reference.
-    // so that is why below statment can be worked.
-    // dereferencing this will be equal to the referenced oldFixed
-    // so now it is pointing to the contents of the data respectively.
     
-    // Why const Fixed& is Used:
-    // Const Reference: The const Fixed& ensures that the assignment operator can accept both lvalues (named objects) and rvalues (temporary objects) without any issues.
-
-    // Lvalues: Can be any object that exists and is named (e.g., Fixed a = b;).
-    // Rvalues: Are temporary objects or expressions that generate temporary objects (e.g., Fixed a = Fixed(3.14f);).
-    
-    // Temporary Handling: The const keyword is used C++ extends the lifetime of that temporary object for the duration of the operator's execution.
-    // in which allows to receive temporary object accessible until the end of the function's scope.
-    
-    // Efficiency: Passing by reference (const Fixed&) is more efficient than 
-    //passing by value because it avoids making a copy of the object being passed.
-
-    // this is also effecting for anycases like operator overload;
-    *this = oldFixed;
+    *this = oldFixed; 
+    // This calls the copy assignment operator, 
+    //which copies the data from oldFixed to the current object (the one being constructed).
+    // so you need to declare the operator=()function as well in the object.
+    // *this refers to the object being constructed. =>  it's a reference to the object itself
+    //It is NOT the address of oldFixed.
+    //think as it gets inside of the contents of the class
+    // In C++, this is automatically a pointer to the object, 
+    // and dereferencing it with *this gives you the object itself, not the address. 
+    // This is similar to accessing a member of a struct or class via a pointer but done implicitly by the language.
+    // The copy assignment operator will copy the actual data (like _fixedPoint) from oldFixed to the new object, not the address.
 }
 
 int Fixed::getRawBits( void ) const{
@@ -116,11 +99,10 @@ void Fixed::setRawBits( int const raw ){
     _fixedPoint = raw;
 }
 
+
+
 float Fixed::toFloat( void ) const{
     return static_cast<float>(_fixedPoint) / (1 << fractional_bits);
-    // to caculate right: we need to change in right form
-    // in which this static_cast<float>(value)will help us out.
-    // giving value 5 will change into 5.0 in this case. 
 }
 int Fixed::toInt( void ) const{
     return _fixedPoint >> fractional_bits;

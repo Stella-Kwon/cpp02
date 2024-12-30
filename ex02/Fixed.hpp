@@ -6,7 +6,7 @@
 /*   By: skwon2 <skwon2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:06:18 by skwon2            #+#    #+#             */
-/*   Updated: 2024/12/30 09:28:08 by skwon2           ###   ########.fr       */
+/*   Updated: 2024/12/30 11:22:23 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,30 @@ class Fixed{
             Fixed();
             Fixed(const int intNum);
             Fixed(const float floatNum);
-            Fixed(const Fixed& newFixed); // copy constructor
+            Fixed(const Fixed& oldFixed); // copy constructor
+            
             ~Fixed();
             Fixed& operator=(const Fixed& newFixed);//copy assignment operator overload.
+            //need to return the new one on the old place
+            //so which means with '=' will allow the modifiying the current object(*this).
+            // so the return value has to be set in reference.
+
+            // but this does not ned Fixed& return.
+            // this will give you the new object with changed value.
+            Fixed operator*(const Fixed& next);
+            Fixed operator-(const Fixed& next);
+            Fixed operator+(const Fixed& next);
+            Fixed operator/(const Fixed& next);
+
+            bool operator>(const Fixed& next);
+            bool operator<(const Fixed& next);
+            bool operator>=(const Fixed& next);
+            bool operator<=(const Fixed& next);
+            bool operator==(const Fixed& next);
+            bool operator!=(const Fixed& next);
+
+            Fixed operator--(const Fixed& next);
+            Fixed operator++(const Fixed& next);
             int getRawBits( void ) const;
             void setRawBits( int const raw );
             float toFloat( void ) const;
