@@ -33,7 +33,7 @@ class Fixed{
             float toFloat( void ) const;
             int toInt( void ) const;
 };
-
+x
 //not related in maniplating  fixed point
 // stream insertion related.
 

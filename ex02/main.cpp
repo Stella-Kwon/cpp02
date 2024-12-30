@@ -6,7 +6,7 @@
 /*   By: skwon2 <skwon2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:05:25 by skwon2            #+#    #+#             */
-/*   Updated: 2024/12/29 11:56:18 by skwon2           ###   ########.fr       */
+/*   Updated: 2024/12/30 15:02:33 by skwon2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ std::cout << a++ << std::endl;
 std::cout << a << std::endl;
 std::cout << b << std::endl;
 std::cout << Fixed::max( a, b ) << std::endl;
+std::cout << Fixed::min( a, b ) << std::endl;
 return 0;
 }
