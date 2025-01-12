@@ -76,7 +76,9 @@ Fixed::Fixed(const Fixed& oldFixed) : _fixedPoint(oldFixed._fixedPoint) {
     // The 'this' pointer refers to the current object being created (new object).
     // 'oldFixed' is the source object from which the data will be copied.
     
-    *this = oldFixed; 
+    //*this = oldFixed; => here it does not need because with initializing list it already copied values that is needed.
+    // this will only cause the double copy operation.
+    // it is good to just give values directrly right away while compiling, so that it does not have to assigned initial values and then assigned with copy assignment operator.
     // This calls the copy assignment operator, 
     //which copies the data from oldFixed to the current object (the one being constructed).
     // so you need to declare the operator=()function as well in the object.
